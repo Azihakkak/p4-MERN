@@ -22,6 +22,11 @@ const formReducer = (state, action) => {
         },
         isValid: formIsValid,
       };
+    case "SET_DATA":
+      return {
+        inputs: action.inputs,
+        isValid: action.formIsValid,
+      };
     default:
       return state;
   }
@@ -43,8 +48,16 @@ export const useForm = (initialInputs, initialFormValidity) => {
       inputId: id,
     });
   }, []);
+  // we wrap it in useCallback so that is stored by react and not recreated unnecesarily
+  const setFormData = useCallback((inputData, formValidity) => {
+    dispatch({
+      type: "SET_DATA",
+      inputs: inputData,
+      formIsValid: formValidity,
+    });
+  }, []);
 
   // our hook has to return something. since we are not interested about the state inside of the hook but in the place that we are using the hook. we have to share the handlers with the component which uses our custom hook.
   // we can return text/object/array ...
-  return [formState, inputHandler];
+  return [formState, inputHandler, setFormData];
 };
