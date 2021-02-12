@@ -37,7 +37,7 @@ const Input = (props) => {
 
   const changeHandler = (event) => {
     // we want to store value and we want to validate
-    // when we have to states and one of them depends on the other one like the validity depends on the input value
+    // when we have two states and one of them depends on the other one like the validity depends on the input value
     // then using useReducer is better than using useState
     dispatch({
       type: "CHANGE",
